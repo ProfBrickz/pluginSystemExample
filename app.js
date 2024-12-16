@@ -52,7 +52,7 @@ app.get('/tasklist/:id', (request, response) => {
 });
 
 io.on('connection', (socket) => {
-   socket.on('addtasklist', ({ name }) => {
+   socket.on('addTasklist', ({ name }) => {
       database.run('INSERT INTO tasklists (name) VALUES (?)', [name], function (error) {
          if (error) {
             console.error(error);
@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
       });
    });
 
-   socket.on('deletetasklist', ({ id }) => {
+   socket.on('deleteTasklist', ({ id }) => {
       database.run('DELETE FROM tasklists WHERE id = ?', [id], (error) => {
          if (error) {
             console.error(error);
