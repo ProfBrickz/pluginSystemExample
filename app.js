@@ -35,24 +35,24 @@ app.get('/tasklist/:id', (request, response) => {
       }
 
       if (!tasklist) {
-         response.status(404).render('error', { error: new Error('Tasklist not found') });
+         response.status(404).render('error', { error: new Error('tasklist not found') });
          return;
       }
 
-      database.all('SELECT * FROM todos WHERE tasklist_id = ?', [tasklistId], (error, todos) => {
+      database.all('SELECT * FROM tasks WHERE tasklist_id = ?', [tasklistId], (error, tasks) => {
          if (error) {
             console.error(error);
             response.status(500).render('error', { error: error });
             return;
          }
 
-         response.render('tasklist', { tasklist: tasklist, todos: todos });
+         response.render('tasklist', { tasklist: tasklist, tasks: tasks });
       });
    });
 });
 
 io.on('connection', (socket) => {
-   socket.on('addTasklist', ({ name }) => {
+   socket.on('addtasklist', ({ name }) => {
       database.run('INSERT INTO tasklists (name) VALUES (?)', [name], function (error) {
          if (error) {
             console.error(error);
@@ -63,7 +63,7 @@ io.on('connection', (socket) => {
       });
    });
 
-   socket.on('deleteTasklist', ({ id }) => {
+   socket.on('deletetasklist', ({ id }) => {
       database.run('DELETE FROM tasklists WHERE id = ?', [id], (error) => {
          if (error) {
             console.error(error);
@@ -73,24 +73,24 @@ io.on('connection', (socket) => {
       });
    });
 
-   socket.on('addTodo', ({ name, tasklist_id }) => {
-      database.run('INSERT INTO todos (name, tasklist_id) VALUES (?, ?)', [name, tasklist_id], function (error) {
+   socket.on('addTask', ({ name, tasklist_id }) => {
+      database.run('INSERT INTO tasks (name, tasklist_id) VALUES (?, ?)', [name, tasklist_id], function (error) {
          if (error) {
             console.error(error);
             return;
          }
-         const todo = { id: this.lastID, name, tasklist_id };
-         io.emit('todoAdded', todo);
+         const task = { id: this.lastID, name, tasklist_id };
+         io.emit('taskAdded', task);
       });
    });
 
-   socket.on('deleteTodo', ({ id }) => {
-      database.run('DELETE FROM todos WHERE id = ?', [id], (error) => {
+   socket.on('deleteTask', ({ id }) => {
+      database.run('DELETE FROM tasks WHERE id = ?', [id], (error) => {
          if (error) {
             console.error(error);
             return;
          }
-         io.emit('todoDeleted', id);
+         io.emit('taskDeleted', id);
       });
    });
 });

@@ -26,29 +26,29 @@ socket.on('tasklistDeleted', (id) => {
    }
 });
 
-function addTodo(event) {
+function addTask(event) {
    event.preventDefault();
    const name = event.target.name.value;
    const tasklist_id = event.target.tasklist_id.value;
-   socket.emit('addTodo', { name, tasklist_id });
+   socket.emit('addTask', { name, tasklist_id });
    event.target.name.value = '';
 }
 
-function deleteTodo(id) {
-   socket.emit('deleteTodo', { id });
+function deleteTask(id) {
+   socket.emit('deleteTask', { id });
 }
 
-socket.on('todoAdded', (todo) => {
-   const todoList = document.getElementById('todo-list');
+socket.on('taskAdded', (task) => {
+   const tasklist = document.getElementById('task-list');
    const li = document.createElement('li');
-   li.dataset.id = todo.id;
-   li.innerHTML = `${todo.name} <button onclick="deleteTodo('${todo.id}')">Delete</button>`;
-   todoList.appendChild(li);
+   li.dataset.id = task.id;
+   li.innerHTML = `${task.name} <button onclick="deleteTask('${task.id}')">Delete</button>`;
+   tasklist.appendChild(li);
 });
 
-socket.on('todoDeleted', (id) => {
-   const todoItem = document.querySelector(`li[data-id="${id}"]`);
-   if (todoItem) {
-      todoItem.remove();
+socket.on('taskDeleted', (id) => {
+   const taskItem = document.querySelector(`li[data-id="${id}"]`);
+   if (taskItem) {
+      taskItem.remove();
    }
 });

@@ -41,6 +41,7 @@ function updateDatabaseVersion() {
       settings.version = packageJson.version;
       fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
    }
+
 }
 
 const databasePath = 'databases/database.db';
@@ -71,10 +72,10 @@ database.get(
       database.serialize(() => {
          if (!settings || !settings.name || !settings.name === 'settings') {
             database.run(
-               'CREATE TABLE IF NOT EXISTS tasklists (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)'
+               'CREATE TABLE IF NOT EXISTS tasklists (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL)'
             );
             database.run(
-               'CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, tasklist_id INTEGER, FOREIGN KEY(tasklist_id) REFERENCES tasklists(id))'
+               'CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, tasklist_id INTEGER NOT NULL, FOREIGN KEY(tasklist_id) REFERENCES tasklists(id))'
             );
          }
 

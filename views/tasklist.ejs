@@ -2,16 +2,16 @@
 
 <main>
    <h2><%= tasklist.name %></h2>
-   <form onsubmit="addTodo(event)">
-      <input type="text" name="name" placeholder="Enter a new todo" required />
+   <form onsubmit="addTask(event)">
+      <input type="text" name="name" placeholder="Enter a new task" required />
       <input type="hidden" name="tasklist_id" value="<%= tasklist.id %>" />
-      <button type="submit">Add Todo</button>
+      <button type="submit">Add Task</button>
    </form>
-   <ul id="todo-list">
-      <% todos.forEach((todo) => { %>
-      <li data-id="<%= todo.id %>">
-         <%= todo.name %>
-         <button onclick="deleteTodo('<%= todo.id %>')">Delete</button>
+   <ul id="task-list">
+      <% tasks.forEach((task) => { %>
+      <li data-id="<%= task.id %>">
+         <%= task.name %>
+         <button onclick="deleteTask('<%= task.id %>')">Delete</button>
       </li>
       <% }) %>
    </ul>
