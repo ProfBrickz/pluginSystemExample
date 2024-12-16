@@ -1,0 +1,64 @@
+html[data-theme="light"] {
+   body {
+      background-color: hsl(0, 0%, 96%);
+   }
+
+   a {
+      color: hsl(210, 100%, 40%);
+   }
+
+   a:hover {
+      color: hsl(210, 100%, 30%);
+   }
+
+   .container,
+   main {
+      background: hsl(0, 0%, 100%);
+   }
+
+   input[type="text"] {
+      border-color: hsl(0, 0%, 80%);
+   }
+
+   button {
+      background: hsl(134, 61%, 41%);
+      color: #fff;
+   }
+
+   button:hover {
+      background: hsl(133, 61%, 33%);
+   }
+
+   li {
+      background: hsl(0, 0%, 95%);
+   }
+
+   li button {
+      background: hsl(354, 70%, 54%);
+   }
+
+   li button:hover {
+      background: hsl(354, 70%, 46%);
+   }
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5 {
+      color: hsl(0, 0%, 5%);
+   }
+
+   h2.error {
+      color: hsl(0, 100%, 50%);
+   }
+
+   p.error {
+      border-color: hsl(0, 100%, 50%);
+   }
+
+   .navbar {
+      background-color: hsl(0, 0%, 70%);
+      color: hsl(0, 0%, 100%);
+   }
+}

@@ -1,0 +1,19 @@
+<%- include('layout') %>
+
+<main>
+   <h2><%= tasklist.name %></h2>
+   <form onsubmit="addTodo(event)">
+      <input type="text" name="name" placeholder="Enter a new todo" required />
+      <input type="hidden" name="tasklist_id" value="<%= tasklist.id %>" />
+      <button type="submit">Add Todo</button>
+   </form>
+   <ul id="todo-list">
+      <% todos.forEach((todo) => { %>
+      <li data-id="<%= todo.id %>">
+         <%= todo.name %>
+         <button onclick="deleteTodo('<%= todo.id %>')">Delete</button>
+      </li>
+      <% }) %>
+   </ul>
+   <a href="/">Back to Home</a>
+</main>

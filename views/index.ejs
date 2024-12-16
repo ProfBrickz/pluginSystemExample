@@ -1,0 +1,23 @@
+<%- include('layout') %>
+
+<main>
+   <h2 class="centered">Tasklists</h2>
+   <form onsubmit="addTasklist(event)">
+      <input
+         type="text"
+         name="name"
+         placeholder="Enter a new tasklist"
+         required
+      />
+      <button type="submit">Add Tasklist</button>
+   </form>
+
+   <ul id="tasklist-list">
+      <% tasklists.forEach((tasklist) => { %>
+      <li data-id="<%= tasklist.id %>">
+         <a href="/tasklist/<%= tasklist.id %>"><%= tasklist.name %></a>
+         <button onclick="deleteTasklist('<%= tasklist.id %>')">Delete</button>
+      </li>
+      <% }) %>
+   </ul>
+</main>
